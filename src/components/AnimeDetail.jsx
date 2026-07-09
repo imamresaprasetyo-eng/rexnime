@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './AnimeDetail.css'
 import StreamingLinks from './StreamingLinks'
+import VideoPlayer from './VideoPlayer'
 
 export default function AnimeDetail({ anime, onClose }) {
   const [activeTab, setActiveTab] = useState('info')
@@ -45,6 +46,12 @@ export default function AnimeDetail({ anime, onClose }) {
 
             <div className="anime-detail-tabs">
               <button
+                className={`tab-btn ${activeTab === 'player' ? 'active' : ''}`}
+                onClick={() => setActiveTab('player')}
+              >
+                🎥 Putar
+              </button>
+              <button
                 className={`tab-btn ${activeTab === 'info' ? 'active' : ''}`}
                 onClick={() => setActiveTab('info')}
               >
@@ -54,11 +61,15 @@ export default function AnimeDetail({ anime, onClose }) {
                 className={`tab-btn ${activeTab === 'streaming' ? 'active' : ''}`}
                 onClick={() => setActiveTab('streaming')}
               >
-                ▶️ Nonton
+                ▶️ Streaming
               </button>
             </div>
 
             <div className="anime-detail-content-area">
+              {activeTab === 'player' && (
+                <VideoPlayer anime={anime} />
+              )}
+
               {activeTab === 'info' && (
                 <div className="tab-content">
                   {anime.synopsis && (
